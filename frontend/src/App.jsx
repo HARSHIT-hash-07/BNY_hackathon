@@ -131,14 +131,18 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
            <span className="text-[10px] font-black text-emerald-500 uppercase">System Active</span>
         </div>
         
-        <div className="flex flex-col items-center gap-3 opacity-40 hover:opacity-100 transition-opacity px-2">
-           <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em]">In Collaboration With</p>
+
+
+        <div className="flex flex-col items-center gap-3 opacity-60 hover:opacity-100 transition-opacity px-2">
+           <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em]">Developed For</p>
            <img 
-             src="https://upload.wikimedia.org/wikipedia/en/thumb/9/91/BNY_Mellon_2024_Logo.svg/512px-BNY_Mellon_2024_Logo.svg.png" 
+             src="https://www.bny.com/etc.clientlibs/bny-v2/clientlibs/clientlib-site/resources/images/bny-logo-white.svg" 
              alt="BNY Logo" 
-             className="h-5 object-contain brightness-0 invert" 
+             className="h-6 object-contain" 
            />
         </div>
+
+
       </div>
 
     </div>
