@@ -12,7 +12,7 @@ Steps:
   5. Generate SHAP explainability
   6. Write kyc_output.csv
 
-BNY Hackathon 2026 · Antigravity Team
+BNY Hackathon 2026 · We Tried Team
 """
 
 import pandas as pd
@@ -41,7 +41,7 @@ def main():
     
     print("=" * 65)
     print("  🏦 Smart KYC Risk Scoring Engine — BNY Hackathon 2026")
-    print("  Antigravity Team · AI-powered AML Customer Onboarding")
+    print("  We Tried Team · AI-powered AML Customer Onboarding")
     print("=" * 65)
 
     # ── Step 1: Preprocessing ─────────────────────────────────────────────────

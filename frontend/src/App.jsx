@@ -206,11 +206,12 @@ const Overview = ({ data }) => {
       </div>
 
       <div className="grid grid-cols-2 gap-6">
+
         <div className="glass p-10 h-[450px]">
           <h3 className="text-xl font-black text-white mb-10">Risk Classification</h3>
           <ResponsiveContainer width="100%" height={280}>
             <PieChart>
-              <Pie data={tierData} cx="50%" cy="50%" innerRadius={80} outerRadius={110} paddingAngle={8} dataKey="value" animationDuration={1000}>
+              <Pie data={tierData} cx="50%" cy="50%" innerRadius={80} outerRadius={110} paddingAngle={8} dataKey="value" animationDuration={1000} label={({name, value}) => `${name}: ${value}`}>
                 {tierData.map((e, i) => <Cell key={i} fill={e.color} stroke="none" />)}
               </Pie>
               <Tooltip contentStyle={{ backgroundColor: '#0d1117', border: 'none', borderRadius: '16px' }} />
@@ -220,16 +221,17 @@ const Overview = ({ data }) => {
         <div className="glass p-10 h-[450px]">
           <h3 className="text-xl font-black text-white mb-10">Directives Distribution</h3>
           <ResponsiveContainer width="100%" height={280}>
-            <BarChart data={decisionData}>
+            <BarChart data={decisionData} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
               <CartesianGrid strokeDasharray="5 5" vertical={false} stroke="rgba(255,255,255,0.03)" />
-              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} />
-              <YAxis axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} />
+              <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} label={{ value: 'Actionable Directive', position: 'insideBottom', offset: -10, fill: '#4b5563', fontSize: 10, fontWeight: 'bold' }} />
+              <YAxis axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} label={{ value: 'Entities', angle: -90, position: 'insideLeft', fill: '#4b5563', fontSize: 10, fontWeight: 'bold' }} />
               <Bar dataKey="value" radius={[10, 10, 0, 0]} barSize={50}>
                 {decisionData.map((e, i) => <Cell key={i} fill={e.color} />)}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
+
       </div>
     </div>
   );
@@ -270,8 +272,9 @@ const Analytics = ({ data }) => {
              <Activity size={20} className="text-[#6c63ff]" />
              Risk Score Frequency Distribution
            </h3>
+
            <ResponsiveContainer width="100%" height={350}>
-             <AreaChart data={bins}>
+             <AreaChart data={bins} margin={{ top: 10, right: 30, left: 20, bottom: 20 }}>
                <defs>
                  <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
                    <stop offset="5%" stopColor="#6c63ff" stopOpacity={0.3}/>
@@ -279,12 +282,13 @@ const Analytics = ({ data }) => {
                  </linearGradient>
                </defs>
                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.03)" />
-               <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} />
-               <YAxis axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} />
+               <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} label={{ value: 'Risk Score Clusters (0-100)', position: 'insideBottom', offset: -10, fill: '#4b5563', fontSize: 10, fontWeight: 'bold' }} />
+               <YAxis axisLine={false} tickLine={false} tick={{fill: '#4b5563', fontSize: 10}} label={{ value: 'Customer Frequency', angle: -90, position: 'insideLeft', fill: '#4b5563', fontSize: 10, fontWeight: 'bold' }} />
                <Tooltip contentStyle={{ backgroundColor: '#0d1117', border: 'none', borderRadius: '12px' }} />
                <Area type="monotone" dataKey="count" stroke="#6c63ff" strokeWidth={3} fillOpacity={1} fill="url(#colorCount)" />
              </AreaChart>
            </ResponsiveContainer>
+
         </div>
 
         <div className="col-span-4 glass p-10 overflow-y-auto">
@@ -322,20 +326,24 @@ const Insights = () => {
 
       <div className="grid grid-cols-2 gap-8">
         <div className="glass p-10 flex flex-col items-center">
+
            <h3 className="text-lg font-black text-white mb-6 self-start uppercase tracking-widest text-[#6c63ff]">SHAP Resource Contribution</h3>
-           <div className="w-full h-[400px] bg-white/[0.01] border border-white/5 rounded-[32px] overflow-hidden flex items-center justify-center p-10 group">
+           <div className="w-full h-[600px] bg-white/[0.01] border border-white/5 rounded-[32px] overflow-hidden flex items-center justify-center p-10 group">
               <img src="/plots/shap_summary.png" alt="SHAP Summary" className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-700 shadow-2xl" />
            </div>
+
            <p className="mt-6 text-xs text-slate-500 text-center px-10 leading-relaxed font-medium">
              Visualization of feature impact on model output. Factors in <span className="text-rose-400 font-bold">magenta</span> represent increased risk, while <span className="text-[#6c63ff] font-bold">indigo</span> represents mitigating factors.
            </p>
         </div>
 
-        <div className="glass p-10 flex flex-col items-center">
+
+         <div className="glass p-10 flex flex-col items-center">
            <h3 className="text-lg font-black text-white mb-6 self-start uppercase tracking-widest text-[#6c63ff]">Unified Feature Importance</h3>
-           <div className="w-full h-[400px] bg-white/[0.01] border border-white/5 rounded-[32px] overflow-hidden flex items-center justify-center p-10 group">
+           <div className="w-full h-[600px] bg-white/[0.01] border border-white/5 rounded-[32px] overflow-hidden flex items-center justify-center p-10 group">
               <img src="/plots/shap_importance.png" alt="SHAP Importance" className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-700 shadow-2xl" />
            </div>
+
            <p className="mt-6 text-xs text-slate-500 text-center px-10 leading-relaxed font-medium">
              Global feature impact ranking based on average absolute SHAP values. Highly weighted features indicate primary model sensitivity areas.
            </p>
@@ -381,36 +389,169 @@ const Insights = () => {
   );
 };
 
+
 const Customers = ({ data, onSelect }) => {
   const [search, setSearch] = useState('');
-  const [filter, setFilter] = useState('ALL');
-  const filtered = useMemo(() => data.filter(d => (filter === 'ALL' || d.risk_tier === filter) && d.customer_id.toLowerCase().includes(search.toLowerCase())), [data, search, filter]);
+  const [filter, setFilter] = useState('HIGH'); // Default to high priority
+  
+  const filtered = useMemo(() => 
+    data.filter(d => 
+      (filter === 'ALL' || d.risk_tier === filter) && 
+      d.customer_id.toLowerCase().includes(search.toLowerCase())
+    ), [data, search, filter]);
+
+  return (
+    <div className="space-y-8 animate-fadeIn">
+      <div className="flex justify-between items-end">
+        <div>
+          <h2 className="text-3xl font-black text-white tracking-tight">Case Management</h2>
+          <p className="text-sm text-slate-500 mt-1 font-medium">Priority workflow focusing on high-risk detections.</p>
+        </div>
+        <div className="flex gap-4">
+          <div className="flex bg-white/5 p-1 rounded-2xl border border-white/10">
+            {['HIGH', 'MEDIUM', 'ALL'].map(f => (
+              <button key={f} onClick={() => setFilter(f)} className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${filter === f ? 'bg-[#6c63ff] text-white' : 'text-slate-500 hover:text-white'}`}>
+                {f}
+              </button>
+            ))}
+          </div>
+          <input type="text" placeholder="Search entity..." className="pl-6 pr-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-sm text-white focus:outline-none w-64 font-bold" value={search} onChange={(e) => setSearch(e.target.value)} />
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-3 gap-6">
+        {filtered.slice(0, 15).map((item) => (
+          <div key={item.customer_id} onClick={() => onSelect(item)} className="glass p-8 relative overflow-hidden group cursor-pointer card-hover border-white/5 hover:border-[#6c63ff]/30">
+            <div className={`absolute top-0 right-0 w-2 h-full ${item.risk_tier === 'HIGH' ? 'bg-rose-500' : 'bg-amber-500'}`} />
+            <div className="flex justify-between items-start mb-6">
+               <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center font-black text-xs">ID</div>
+               <span className={`px-3 py-1 rounded-lg text-[8px] font-black uppercase ${item.risk_tier === 'HIGH' ? 'bg-rose-500/10 text-rose-500' : 'bg-amber-500/10 text-amber-500'}`}>Priority</span>
+            </div>
+            <h4 className="text-xl font-black text-white mb-1">{item.customer_id}</h4>
+            <p className="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-6">{item.decision}</p>
+            <div className="flex justify-between items-center text-[10px] font-black text-slate-400">
+               <span>SCORE: {item.risk_score.toFixed(1)}</span>
+               <ChevronRight size={16} className="group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const AuditDatabase = ({ data, onSelect }) => {
+  const [search, setSearch] = useState('');
+  const filtered = useMemo(() => 
+    data.filter(d => d.customer_id.toLowerCase().includes(search.toLowerCase())), 
+    [data, search]
+  );
 
   return (
     <div className="space-y-8 animate-fadeIn">
       <div className="flex justify-between items-center bg-white/[0.01] border border-white/5 p-8 rounded-[30px]">
         <div>
-          <h2 className="text-3xl font-black text-white tracking-tight">Technical Ledger</h2>
-          <p className="text-sm text-slate-500 mt-1 font-medium">{filtered.length} entries matching</p>
+          <h2 className="text-3xl font-black text-white tracking-tight">Audit Ledger</h2>
+          <p className="text-sm text-slate-500 mt-1 font-medium">{data.length} Total Master Entries</p>
         </div>
         <div className="flex gap-4">
-          <input type="text" placeholder="Search ID..." className="pl-6 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm text-white focus:outline-none w-80 font-bold" value={search} onChange={(e) => setSearch(e.target.value)} />
-          <select className="bg-white/5 border border-white/10 rounded-2xl text-sm font-bold text-white px-6 py-4 focus:outline-none" value={filter} onChange={(e) => setFilter(e.target.value)}>
-             <option value="ALL">All Tiers</option><option value="HIGH">High</option><option value="MEDIUM">Med</option><option value="LOW">Low</option>
-          </select>
+          <input type="text" placeholder="Deep Query Database..." className="pl-6 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm text-white focus:outline-none w-80 font-bold underline decoration-[#6c63ff]/30 underline-offset-8" value={search} onChange={(e) => setSearch(e.target.value)} />
+          <button className="bg-white/5 border border-white/10 text-white px-6 py-4 rounded-2xl text-[10px] font-black uppercase hover:bg-white/10 transition-all flex items-center gap-2">
+            <Database size={14} /> Export CSV
+          </button>
         </div>
       </div>
-      <div className="glass overflow-hidden"><table className="w-full text-left"><thead><tr className="border-b border-white/5 bg-white/[0.02]"><th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">ID</th><th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Score</th><th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Tier</th><th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Directive</th><th className="px-8 py-6"></th></tr></thead><tbody className="divide-y divide-white/5">{filtered.slice(0, 50).map((item) => (<tr key={item.customer_id} className="hover:bg-white/[0.03] transition-all cursor-pointer group" onClick={() => onSelect(item)}><td className="px-8 py-5"><span className="text-sm font-mono font-black text-white">{item.customer_id}</span></td><td className="px-8 py-5"><div className="flex items-center gap-3"><span className="text-sm font-black text-white">{item.risk_score.toFixed(1)}</span><div className="w-24 h-1 bg-white/5 rounded-full"><div className={`h-full ${item.risk_score > 40 ? 'bg-rose-500' : 'bg-emerald-500'}`} style={{ width: `${item.risk_score}%` }} /></div></div></td><td className="px-8 py-5"><span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase border ${item.risk_tier === 'HIGH' ? 'bg-rose-500/10 text-rose-500 border-rose-500/20' : 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20'}`}>{item.risk_tier}</span></td><td className="px-8 py-5 text-xs font-black text-slate-400 uppercase tracking-widest">{item.decision}</td><td className="px-8 py-5 text-right font-black text-slate-600 group-hover:text-white transition-colors"><ChevronRight size={18} /></td></tr>))}</tbody></table></div>
+      <div className="glass overflow-hidden">
+        <table className="w-full text-left">
+          <thead>
+            <tr className="border-b border-white/5 bg-white/[0.02]">
+              <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Customer ID</th>
+              <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Vector Score</th>
+              <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Account Type</th>
+              <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Document Status</th>
+              <th className="px-8 py-6 text-[10px] font-black text-slate-500 uppercase tracking-widest">Residency Risk</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-white/5">
+            {filtered.slice(0, 50).map((item) => (
+              <tr key={item.customer_id} className="hover:bg-white/[0.03] transition-all cursor-pointer group" onClick={() => onSelect(item)}>
+                <td className="px-8 py-5 font-mono text-sm font-black text-white/80">{item.customer_id}</td>
+                <td className="px-8 py-5">
+                   <div className="px-3 py-1 rounded bg-white/5 border border-white/5 inline-block text-[10px] font-black font-mono">{item.risk_score.toFixed(4)}</div>
+                </td>
+                <td className="px-8 py-5 text-xs font-bold text-slate-400 capitalize">{item.account_type || 'Savings'}</td>
+                <td className="px-8 py-5">
+                   <span className="flex items-center gap-2 text-[10px] font-black uppercase text-emerald-500">
+                     <CheckCircle2 size={12} /> Verified
+                   </span>
+                </td>
+                <td className="px-8 py-5 text-xs font-bold text-slate-500 tracking-wider">USA_RES_724</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
 
+
+
 const CustomerDetail = ({ customer, onClose }) => (
     <motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="space-y-10">
-      <div className="flex justify-between items-center"><button onClick={onClose} className="text-slate-500 hover:text-white flex items-center gap-2 text-sm font-black uppercase tracking-widest transition-colors"><ChevronRight size={18} className="rotate-180" /> Back</button><div className="flex gap-4"><button className="glass px-6 py-3 text-[10px] font-black uppercase text-white hover:bg-white/10 transition-all">Export</button><button className="bg-[#6c63ff] px-6 py-3 rounded-2xl text-[10px] font-black uppercase text-white shadow-xl shadow-indigo-500/20">Override</button></div></div>
-      <div className="grid grid-cols-3 gap-8"><div className="glass p-10 flex flex-col items-center text-center"><div className="w-24 h-24 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mb-6"><User size={48} className="text-[#6c63ff]" /></div><h2 className="text-3xl font-black text-white mb-2">{customer.customer_id}</h2><p className="text-[#6c63ff] text-[10px] font-black uppercase tracking-[0.3em] mb-8">{customer.occupation || 'Private Client'}</p><div className="w-full space-y-4 bg-black/20 p-6 rounded-3xl border border-white/5 text-left"><div className="flex justify-between items-center border-b border-white/5 pb-3 font-bold"><span className="text-[10px] text-slate-500 uppercase">Age</span><span className="text-sm text-white">{customer.age || '42'}</span></div><div className="flex justify-between items-center font-bold"><span className="text-[10px] text-slate-500 uppercase">Score</span><span className="text-sm text-white">{customer.risk_score.toFixed(1)}</span></div></div></div><div className="col-span-2 glass p-10 h-full"><h3 className="text-xl font-black text-white mb-8">Explainability Matrix (SHAP)</h3><div className="h-32 bg-white/[0.02] border border-white/10 rounded-[32px] relative flex items-center px-4 overflow-hidden"><div className="flex-1 flex justify-end pr-4"><div className="h-10 bg-indigo-500/40 w-1/3 rounded-l-xl" /><div className="h-10 bg-indigo-500/60 w-1/4" /></div><div className="bg-white text-black px-6 py-3 rounded-2xl text-xl font-black relative z-10 shadow-2xl">{customer.risk_score.toFixed(1)}</div><div className="flex-1 flex justify-start pl-4"><div className="h-10 bg-rose-500/60 w-1/2" /><div className="h-10 bg-rose-500/40 w-1/4" /><div className="h-10 bg-rose-500/20 w-1/6 rounded-r-xl" /></div></div><div className="mt-12 p-8 bg-white/5 border border-white/5 rounded-3xl italic text-slate-400 font-medium leading-relaxed">"{customer.top_risk_factors}"</div></div></div>
+      <div className="flex justify-between items-center"><button onClick={onClose} className="text-slate-500 hover:text-white flex items-center gap-2 text-sm font-black uppercase tracking-widest transition-colors"><ChevronRight size={18} className="rotate-180" /> Back</button><div className="flex gap-4"><button className="glass px-6 py-3 text-[10px] font-black uppercase text-white hover:bg-white/10 transition-all">Export Dossier</button><button className="bg-[#6c63ff] px-6 py-3 rounded-2xl text-[10px] font-black uppercase text-white shadow-xl shadow-indigo-500/20">Override Score</button></div></div>
+      <div className="grid grid-cols-3 gap-8">
+        <div className="glass p-10 flex flex-col items-center text-center">
+          <div className="w-24 h-24 rounded-3xl bg-white/5 border border-white/10 flex items-center justify-center mb-6">
+            <User size={48} className="text-[#6c63ff]" />
+          </div>
+          <h2 className="text-3xl font-black text-white mb-2">{customer.customer_id}</h2>
+          <p className="text-[#6c63ff] text-[10px] font-black uppercase tracking-[0.3em] mb-8">{customer.occupation || 'Private Client'}</p>
+          <div className="w-full space-y-4 bg-black/20 p-6 rounded-3xl border border-white/5 text-left">
+            <div className="flex justify-between items-center border-b border-white/5 pb-3 font-bold"><span className="text-[10px] text-slate-500 uppercase">Age</span><span className="text-sm text-white">{customer.age || '42'}</span></div>
+            <div className="flex justify-between items-center font-bold"><span className="text-[10px] text-slate-500 uppercase">Tier</span><span className="text-sm text-white">{customer.risk_tier}</span></div>
+            <div className="flex justify-between items-center font-bold"><span className="text-[10px] text-slate-500 uppercase">Status</span><span className="text-[10px] text-emerald-500 uppercase">Active Log</span></div>
+          </div>
+        </div>
+        <div className="col-span-2 glass p-10 h-full flex flex-col">
+          <h3 className="text-xl font-black text-white mb-8">Explainability Matrix (SHAP)</h3>
+          
+          <div className="flex justify-between items-end mb-2 px-4">
+             <span className="text-[8px] font-black text-[#6c63ff] uppercase tracking-widest">← Mitigating Factors (Lower Risk)</span>
+             <span className="text-[8px] font-black text-rose-500 uppercase tracking-widest">Risk Drivers (Higher Risk) →</span>
+          </div>
+          
+          <div className="h-32 bg-white/[0.02] border border-white/10 rounded-[32px] relative flex items-center px-4 overflow-hidden mb-6">
+            <div className="flex-1 flex justify-end pr-4 text-[10px] font-black text-indigo-400">
+               <div className="h-10 bg-indigo-500/40 w-1/3 rounded-l-xl" />
+               <div className="h-10 bg-indigo-500/60 w-1/4" />
+            </div>
+            <div className="bg-white text-black px-6 py-3 rounded-2xl text-xl font-black relative z-10 shadow-2xl">{customer.risk_score.toFixed(1)}</div>
+            <div className="flex-1 flex justify-start pl-4">
+               <div className="h-10 bg-rose-500/60 w-1/2" />
+               <div className="h-10 bg-rose-500/40 w-1/4" />
+               <div className="h-10 bg-rose-500/20 w-1/6 rounded-r-xl" />
+            </div>
+          </div>
+          
+          <div className="mt-auto p-8 bg-white/5 border border-white/5 rounded-3xl relative">
+             <div className="absolute top-0 right-10 -translate-y-1/2 flex gap-4">
+                <div className="flex items-center gap-2 bg-[#0d1117] px-3 py-1 rounded-full border border-white/5">
+                   <div className="w-2 h-2 rounded-full bg-rose-500" />
+                   <span className="text-[8px] font-black text-slate-400 uppercase">Risk Up</span>
+                </div>
+                <div className="flex items-center gap-2 bg-[#0d1117] px-3 py-1 rounded-full border border-white/5">
+                   <div className="w-2 h-2 rounded-full bg-[#6c63ff]" />
+                   <span className="text-[8px] font-black text-slate-400 uppercase">Risk Down</span>
+                </div>
+             </div>
+             <p className="italic text-slate-400 font-medium leading-relaxed">"{customer.top_risk_factors}"</p>
+          </div>
+        </div>
+      </div>
     </motion.div>
 );
+
 
 // --- Main App ---
 
@@ -422,15 +563,19 @@ function App() {
     <div className="flex min-h-screen bg-[#0d1117] text-white selection:bg-[#6c63ff] selection:text-white">
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       <main className="flex-1 ml-72 p-14 relative z-10">
-        <header className="flex justify-between items-center mb-16"><div className="flex items-center gap-4 relative"><Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} /><input type="text" placeholder="Deep search ledger..." className="pl-14 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm font-bold text-white focus:outline-none w-[400px] transition-all" /></div><div className="flex items-center gap-6"><Bell className="text-slate-500 cursor-pointer hover:text-white" size={20} /><div className="h-8 w-px bg-white/10" /><div className="flex items-center gap-4 glass px-5 py-2 rounded-2xl"><div className="w-8 h-8 rounded-lg bg-[#6c63ff] flex items-center justify-center text-xs font-black">AG</div><div className="text-left font-black"><p className="text-[10px] leading-tight">Antigravity AI</p><p className="text-[8px] text-[#6c63ff] uppercase letter-spacing-widest">Admin</p></div></div></div></header>
+
+        <header className="flex justify-between items-center mb-16"><div className="flex items-center gap-4 relative"><Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" size={20} /><input type="text" placeholder="Deep search ledger..." className="pl-14 pr-6 py-4 bg-white/5 border border-white/10 rounded-2xl text-sm font-bold text-white focus:outline-none w-[400px] transition-all" /></div><div className="flex items-center gap-6"><Bell className="text-slate-500 cursor-pointer hover:text-white" size={20} /><div className="h-8 w-px bg-white/10" /><div className="flex items-center gap-4 glass px-5 py-2 rounded-2xl"><div className="w-8 h-8 rounded-lg bg-[#6c63ff] flex items-center justify-center text-xs font-black">WT</div><div className="text-left font-black"><p className="text-[10px] leading-tight">We Tried</p><p className="text-[8px] text-[#6c63ff] uppercase letter-spacing-widest">Admin</p></div></div></div></header>
+
         <AnimatePresence mode="wait">
           <motion.div key={selectedCustomer ? 'detail' : activeTab} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.4 }}>
             {selectedCustomer ? <CustomerDetail customer={selectedCustomer} onClose={() => setSelectedCustomer(null)} /> : (
               <>
                 {activeTab === 'overview' && <Overview data={kycData} />}
                 {activeTab === 'analytics' && <Analytics data={kycData} />}
+
                 {activeTab === 'customers' && <Customers data={kycData} onSelect={setSelectedCustomer} />}
-                {activeTab === 'database' && <Customers data={kycData} onSelect={setSelectedCustomer} />}
+                {activeTab === 'database' && <AuditDatabase data={kycData} onSelect={setSelectedCustomer} />}
+
                 {activeTab === 'insights' && <Insights />}
               </>
             )}

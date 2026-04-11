@@ -2,7 +2,7 @@
 
 > AI-powered KYC (Know Your Customer) Risk Scoring Engine for automated customer onboarding decisions in financial institutions.
 
-**BNY Hackathon 2026 · Antigravity Team**
+**BNY Hackathon 2026 · We Tried Team**
 
 ---
 

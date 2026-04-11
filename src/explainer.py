@@ -121,39 +121,48 @@ def generate_explanations(df: pd.DataFrame, shap_values, X: pd.DataFrame,
     return pd.Series(explanations, index=df.index, name='top_risk_factors')
 
 
+
 def save_shap_summary_plot(shap_values, X: pd.DataFrame,
                             features: list, output_dir: str = 'output/'):
     """
-    Save the SHAP summary beeswarm plot as a PNG.
-    This is a key visual for the dashboard and the judge demo.
+    Save the SHAP summary beeswarm plot as a high-res PNG.
+    Uses human-readable labels for the hackathon presentation.
     """
     os.makedirs(output_dir, exist_ok=True)
-    plt.figure(figsize=(12, 8))
+    
+    # Map feature names to human-readable versions for the plot
+    X_plot = X.copy()
+    X_plot.columns = [FEATURE_LABELS.get(col, col.replace('_', ' ').title()) for col in X_plot.columns]
 
+    plt.figure(figsize=(16, 12))
+    
     if isinstance(shap_values, list):
-        # For multi-class, show the HIGH risk class SHAP
         sv = shap_values[-1] if len(shap_values) > 1 else shap_values[0]
     elif isinstance(shap_values, np.ndarray) and shap_values.ndim == 3:
         sv = shap_values[:, :, -1]
     else:
         sv = shap_values
 
-    shap.summary_plot(sv, X, feature_names=features,
-                      show=False, plot_size=(12, 8))
+    shap.summary_plot(sv, X_plot, show=False, plot_size=(16, 12))
+    
     path = os.path.join(output_dir, 'shap_summary.png')
-    plt.savefig(path, bbox_inches='tight', dpi=150)
+    # Use 300 DPI for high-fidelity professional presentation
+    plt.savefig(path, bbox_inches='tight', dpi=300)
     plt.close()
-    print(f"[Explainer] SHAP summary plot saved to {path}")
+    print(f"[Explainer] SHAP summary plot (HD) saved to {path}")
 
 
 def save_shap_bar_plot(shap_values, X: pd.DataFrame,
                         features: list, output_dir: str = 'output/'):
     """
-    Save the SHAP mean importance bar chart.
-    Shows which features matter most across the entire dataset.
+    Save the SHAP mean importance bar chart as a high-res PNG.
     """
     os.makedirs(output_dir, exist_ok=True)
-    plt.figure(figsize=(12, 7))
+    
+    X_plot = X.copy()
+    X_plot.columns = [FEATURE_LABELS.get(col, col.replace('_', ' ').title()) for col in X_plot.columns]
+
+    plt.figure(figsize=(16, 9))
 
     if isinstance(shap_values, list):
         sv = shap_values[-1] if len(shap_values) > 1 else shap_values[0]
@@ -162,12 +171,12 @@ def save_shap_bar_plot(shap_values, X: pd.DataFrame,
     else:
         sv = shap_values
 
-    shap.summary_plot(sv, X, feature_names=features,
-                      plot_type='bar', show=False, plot_size=(12, 7))
+    shap.summary_plot(sv, X_plot, plot_type='bar', show=False, plot_size=(16, 9))
     path = os.path.join(output_dir, 'shap_importance.png')
-    plt.savefig(path, bbox_inches='tight', dpi=150)
+    plt.savefig(path, bbox_inches='tight', dpi=300)
     plt.close()
-    print(f"[Explainer] SHAP importance plot saved to {path}")
+    print(f"[Explainer] SHAP importance plot (HD) saved to {path}")
+
 
 
 def run_explainer_pipeline(df: pd.DataFrame, model, X: pd.DataFrame,

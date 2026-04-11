@@ -10,7 +10,7 @@ Layout: Clean tab-based navigation with 4 main tabs:
   3. Customers   — Filterable table + individual customer drill-down
   4. Insights    — SHAP explainability + business intelligence
 
-BNY Hackathon 2026 · Antigravity Team
+BNY Hackathon 2026 · We Tried Team
 """
 
 import streamlit as st
@@ -724,6 +724,6 @@ elif nav_option == "Insights":
 st.markdown("""
 <p class="footer-text">
     Built with Python · XGBoost · SHAP · Streamlit<br>
-    BNY Hackathon 2026 · Antigravity Team · Synthetic data only
+    BNY Hackathon 2026 · We Tried Team · Synthetic data only
 </p>
 """, unsafe_allow_html=True)
