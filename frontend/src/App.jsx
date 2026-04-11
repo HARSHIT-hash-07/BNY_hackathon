@@ -124,12 +124,23 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
         ))}
       </div>
 
-      <div className="mt-auto pt-8 border-t border-white/5">
+
+      <div className="mt-auto pt-8 border-t border-white/5 space-y-4">
         <div className="bg-emerald-500/5 border border-emerald-500/10 rounded-3xl p-5 flex items-center gap-3">
            <div className="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_#10b981]" />
            <span className="text-[10px] font-black text-emerald-500 uppercase">System Active</span>
         </div>
+        
+        <div className="flex flex-col items-center gap-3 opacity-40 hover:opacity-100 transition-opacity px-2">
+           <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.2em]">In Collaboration With</p>
+           <img 
+             src="https://upload.wikimedia.org/wikipedia/en/thumb/9/91/BNY_Mellon_2024_Logo.svg/512px-BNY_Mellon_2024_Logo.svg.png" 
+             alt="BNY Logo" 
+             className="h-5 object-contain brightness-0 invert" 
+           />
+        </div>
       </div>
+
     </div>
   );
 };
