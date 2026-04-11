@@ -1,0 +1,25 @@
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+ENV/
+env/
+.env
+
+# Javascript / React
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vscode/
+.DS_Store
+
+# Streamlit
+.streamlit/
+
+# Local data (optional to ignore, but good for cleanliness)
+# output/
+# kyc_data.json

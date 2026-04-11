@@ -1,0 +1,70 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0d1117;
+  --bg-secondary: #0a0d12;
+  --bg-card: rgba(13, 17, 23, 0.7);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: blur(12px);
+  
+  --text-primary: #ffffff;
+  --text-secondary: #8b8fa3;
+  --text-muted: #6b7084;
+  
+  --accent-primary: #6c63ff;
+  --accent-secondary: #4f46e5;
+  --accent-glow: rgba(108, 99, 255, 0.3);
+  
+  --risk-low: #22c55e;
+  --risk-medium: #f59e0b;
+  --risk-high: #ef4444;
+  --risk-edd: #8b5cf6;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top right, #1a1f35 0%, #0d1117 100%);
+  background-attachment: fixed;
+  color: white;
+  @apply font-jakarta antialiased overflow-x-hidden;
+}
+
+.glass {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl;
+}
+
+
+.card-hover {
+  @apply transition-all duration-300;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+.card-hover:hover {
+  @apply -translate-y-1 border-white/20 shadow-2xl shadow-indigo-500/10;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
