@@ -420,7 +420,7 @@ const Customers = ({ data, onSelect }) => {
       </div>
       
       <div className="grid grid-cols-3 gap-6">
-        {filtered.slice(0, 15).map((item) => (
+        {filtered.map((item) => (
           <div key={item.customer_id} onClick={() => onSelect(item)} className="glass p-8 relative overflow-hidden group cursor-pointer card-hover border-white/5 hover:border-[#6c63ff]/30">
             <div className={`absolute top-0 right-0 w-2 h-full ${item.risk_tier === 'HIGH' ? 'bg-rose-500' : 'bg-amber-500'}`} />
             <div className="flex justify-between items-start mb-6">
@@ -473,7 +473,7 @@ const AuditDatabase = ({ data, onSelect }) => {
             </tr>
           </thead>
           <tbody className="divide-y divide-white/5">
-            {filtered.slice(0, 50).map((item) => (
+            {filtered.map((item) => (
               <tr key={item.customer_id} className="hover:bg-white/[0.03] transition-all cursor-pointer group" onClick={() => onSelect(item)}>
                 <td className="px-8 py-5 font-mono text-sm font-black text-white/80">{item.customer_id}</td>
                 <td className="px-8 py-5">
