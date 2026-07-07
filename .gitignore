@@ -23,3 +23,7 @@ dist-ssr/
 # Local data (optional to ignore, but good for cleanliness)
 # output/
 # kyc_data.json
+
+# Local Python package download folder
+local_libs/
+
