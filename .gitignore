@@ -27,3 +27,8 @@ dist-ssr/
 # Local Python package download folder
 local_libs/
 
+# Agent skills symlinks
+.agents/
+.claude/
+
+
