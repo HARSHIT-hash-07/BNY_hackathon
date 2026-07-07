@@ -20,7 +20,6 @@ Outputs:
 """
 
 import pandas as pd
-import numpy as np
 from sklearn.model_selection import train_test_split, cross_val_score
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import classification_report, confusion_matrix, f1_score, accuracy_score
@@ -109,7 +108,7 @@ def compare_models(X_train, y_train, X_test, y_test, le):
     
     models = {
         'Logistic Regression': LogisticRegression(
-            max_iter=1000, random_state=42, multi_class='multinomial'
+            max_iter=1000, random_state=42
         ),
         'Random Forest': RandomForestClassifier(
             n_estimators=200, max_depth=8, random_state=42, n_jobs=-1
@@ -255,9 +254,9 @@ def run_model_pipeline(df: pd.DataFrame):
     df_out['decision'] = df_out.apply(final_decision, axis=1)
 
 
-    print(f"\n[Model] Final Tier Distribution:")
+    print("\n[Model] Final Tier Distribution:")
     print(df_out['final_risk_tier'].value_counts().to_string())
-    print(f"\n[Model] Final Decision Distribution:")
+    print("\n[Model] Final Decision Distribution:")
     print(df_out['decision'].value_counts().to_string())
     
     return df_out, model, X, features
