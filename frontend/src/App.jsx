@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useMemo, useEffect } from 'react';
 import { 
   LayoutDashboard, 
@@ -628,7 +629,13 @@ function App() {
 
   return (
     <div className="flex min-h-screen bg-[#0d1117] text-white selection:bg-[#6c63ff] selection:text-white">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={(tab) => {
+          setSelectedCustomer(null);
+          setActiveTab(tab);
+        }} 
+      />
       <main className="flex-1 ml-72 p-14 relative z-10">
         <header className="flex justify-between items-center mb-16">
           <div className="flex items-center gap-4 relative">
